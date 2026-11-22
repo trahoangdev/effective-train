@@ -1,0 +1,117 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@theme inline {
+  --font-sans: 'Geist Variable', sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--foreground);
+  --color-popover: var(--card);
+  --color-popover-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--foreground);
+  --color-muted: var(--secondary);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--border);
+  --color-ring: var(--ring);
+  --color-ink: #181818;
+  --color-panel: #272727;
+  --color-panel-border: #50504a;
+  --color-panel-text: #c6c6bd;
+  --color-accent-ink: #745400;
+  --color-amber-wash: #fff2c5;
+  --color-blue-wash: #e8eefb;
+  --color-blue-ink: #374e87;
+  --color-green-wash: #e7f2e9;
+  --color-green-ink: #2f6248;
+  --color-violet-wash: #f1eaf7;
+  --color-violet-ink: #644680;
+}
+
+:root {
+  --background: #f7f7f2;
+  --foreground: #232521;
+  --card: #ffffff;
+  --primary: #ffdc66;
+  --secondary: #f0f0e9;
+  --muted-foreground: #62645a;
+  --border: #dfdfd6;
+  --ring: #765500;
+  --destructive: #a0322b;
+  --ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply text-balance;
+  }
+
+  p {
+    @apply text-pretty;
+  }
+
+  :where(a, button, select, summary):focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+
+  :where(button:not(:disabled), select, summary) {
+    cursor: pointer;
+  }
+}
+
+.interaction,
+[data-slot='button'] {
+  transition:
+    transform 300ms var(--ease-settle),
+    opacity 300ms var(--ease-settle);
+}
+
+.interaction:active {
+  transform: translateY(1px);
+}
+
+[data-slot='badge'] {
+  transition: none;
+}
+
+[data-slot='alert-dialog-overlay'],
+[data-slot='alert-dialog-content'] {
+  animation: none;
+}
+
+[data-slot='alert-dialog-overlay'][data-open],
+[data-slot='alert-dialog-content'][data-open],
+.idea-reveal {
+  animation: spark-reveal 300ms var(--ease-settle) both;
+}
+
+@keyframes spark-reveal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
